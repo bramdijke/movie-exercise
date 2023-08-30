@@ -44,9 +44,10 @@ const App = () => {
             </nav>
           </div>
           <main className="lg:col-span-9">{/* routing */}
-          <Routes></Routes>
-            <MovieList searchValue={searchValue} />
-
+          <Routes>
+            <Route path='/' element={<MovieList searchValue={searchValue} />}/>
+            <Route path='/favorites' element={<Favorites />}/>
+          </Routes>
           </main>
         </div>
       </div>
