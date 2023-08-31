@@ -4,6 +4,7 @@ import Search from './components/Search';
 import MovieList from './components/MovieList';
 import Favorites from './routes/Favorites';
 import { useState } from 'react';
+import Detail from './routes/Detail';
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
@@ -47,6 +48,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<MovieList searchValue={searchValue} />}/>
             <Route path='/favorites' element={<Favorites />}/>
+            <Route path='/movies/:title' element={<Detail />}/>
           </Routes>
           </main>
         </div>

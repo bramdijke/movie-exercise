@@ -1,5 +1,6 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import Toggle from '../components/Toggle';
+import { useParams } from 'react-router-dom';
 
 const Detail: FunctionComponent = () => {
   return (
