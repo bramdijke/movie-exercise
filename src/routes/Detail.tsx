@@ -1,6 +1,6 @@
 import { FunctionComponent, useState, useEffect } from 'react';
 import Toggle from '../components/Toggle';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { IMDBMovie } from '../model/movie';
 
 type Props = {
@@ -50,7 +50,11 @@ const Detail: FunctionComponent = (movieDetail) => {
                 <p>{movie?.Plot}</p>
               </div>
             </div>
-            <div className="mt-8 flex justify-between">{/* link back */}</div>
+            <Link to ={`/`}>
+            <div className="mt-8 flex justify-between">
+              <p className='text-gray-500'>Back to list</p>
+            </div>
+            </Link>
           </div>
         </div>
       </div>
