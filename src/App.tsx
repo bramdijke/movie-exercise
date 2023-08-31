@@ -40,7 +40,7 @@ const App = () => {
               <div className="flex flex-col pb-8 space-y-1">
                 {/* navigation */}
                 <Link className="bg-gray-200 p-3 rounded" to='/'>Home</Link>
-                <Link className="bg-gray-200 p-3 rounded" to='/favorite'>Favorite</Link>
+                <Link className="bg-gray-200 p-3 rounded" to='/favorites'>Favorite</Link>
               </div>
             </nav>
           </div>

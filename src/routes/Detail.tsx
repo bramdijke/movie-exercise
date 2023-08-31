@@ -10,6 +10,7 @@ type Props = {
 const Detail: FunctionComponent = (movieDetail) => {
   const [movie, setMovie] = useState<IMDBMovie | null>(null);
   const params = useParams<{ imdbID: string }>(); // 
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     const getMovie = async () => {
@@ -29,13 +30,11 @@ const Detail: FunctionComponent = (movieDetail) => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
           <div>
             <div className="w-full aspect-w-1 aspect-h-1">
-              <img className="w-full h-full object-center object-cover sm:rounded-lg" src={movie?.Poster}
-/>
+              <img className="w-full h-full object-center object-cover sm:rounded-lg" src={movie?.Poster}/>
             </div>
           </div>
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-            <Toggle />
-            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+          <Toggle isFavorite={isFavorite} onToggle={() => setIsFavorite(!isFavorite)} />            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
               {movie?.Title}
             </h1>
             <div className="mt-3">
