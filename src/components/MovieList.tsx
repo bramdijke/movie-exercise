@@ -33,7 +33,7 @@ const MovieList = ({ searchValue }: Props) => {
           ))}
         </div>
       ) : (
-        <p>Loading...</p>
+        <p></p>
       )}
     </div>
   );
