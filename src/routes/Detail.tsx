@@ -9,15 +9,14 @@ type Props = {
 
 const Detail: FunctionComponent = (movieDetail) => {
   const [movie, setMovie] = useState<IMDBMovie | null>(null);
-  const params = useParams();
+  const params = useParams<{ imdbID: string }>(); // 
 
   useEffect(() => {
     const getMovie = async () => {
-      const result = await fetch(`http://www.omdbapi.com/?apikey=1a993ee0&i=tt1285016`);
-      console.log(result); // Log the response object
+      const result = await fetch(`http://www.omdbapi.com/?apikey=1a993ee0&i=${params.imdbID}`);
+      console.log(result);
       const data = await result.json();
   
-      console.log(data); // Log the data
   
       setMovie(data);
     };

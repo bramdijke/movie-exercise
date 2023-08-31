@@ -48,7 +48,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<MovieList searchValue={searchValue} />}/>
             <Route path='/favorites' element={<Favorites />}/>
-            <Route path='/movies/:title' element={<Detail />}/>
+            <Route path='/movies/:imdbID' element={<Detail />}/>
           </Routes>
           </main>
         </div>
