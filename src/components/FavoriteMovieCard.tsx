@@ -19,7 +19,7 @@ const FavoriteMovieCard: FunctionComponent<Props> = ({ movie }) => {
             <dd className="text-gray-500 text-sm">{movie.Year}</dd>
           </dl>
         </div>
-        <button>s</button>
+
       </div>
     </li>
   );

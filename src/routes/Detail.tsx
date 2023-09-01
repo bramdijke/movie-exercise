@@ -24,6 +24,24 @@ const Detail: FunctionComponent = (movieDetail) => {
     getMovie();
   }, [params.imdbID]);
 
+  const handleToggle = () => {
+    const favoriteLS = localStorage.getItem("favorites");
+  const favoriteMovies: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null; 
+    if(isFavorite) {
+      const newMovies = favoriteMovies?.filter((favoriteMovie) => {
+        if (favoriteMovie.imdbID === movie?.imdbID) return false;
+        return true
+      }) 
+      setIsFavorite(false)
+      localStorage.setItem("favorites", JSON.stringify([]));
+
+    } 
+    if(!isFavorite) {
+      setIsFavorite(true)
+      localStorage.setItem("favorites", JSON.stringify(favoriteMovies ? [...favoriteMovies, movie] : [movie]));
+    }
+  }
+
   return (
     <div className="bg-white">
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -34,7 +52,7 @@ const Detail: FunctionComponent = (movieDetail) => {
             </div>
           </div>
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-          <Toggle isFavorite={isFavorite} onToggle={() => setIsFavorite(!isFavorite)} />            
+          <Toggle isFavorite={isFavorite} onToggle={handleToggle} />            
             <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
               {movie?.Title}
             </h1>
