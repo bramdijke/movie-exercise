@@ -9,9 +9,9 @@ type Props = {
 
 const Detail: FunctionComponent = (movieDetail) => {
   const [movie, setMovie] = useState<IMDBMovie | null>(null);
-  const params = useParams<{ imdbID: string }>(); // 
+  const params = useParams<{ imdbID: string }>(); 
   const [isFavorite, setIsFavorite] = useState(false);
-
+  
   useEffect(() => {
     const getMovie = async () => {
       const result = await fetch(`http://www.omdbapi.com/?apikey=1a993ee0&i=${params.imdbID}`);
@@ -34,7 +34,8 @@ const Detail: FunctionComponent = (movieDetail) => {
             </div>
           </div>
           <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-          <Toggle isFavorite={isFavorite} onToggle={() => setIsFavorite(!isFavorite)} />            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+          <Toggle isFavorite={isFavorite} onToggle={() => setIsFavorite(!isFavorite)} />            
+            <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
               {movie?.Title}
             </h1>
             <div className="mt-3">
