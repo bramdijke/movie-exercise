@@ -2,27 +2,43 @@ import { FunctionComponent, useState, useEffect } from 'react';
 import Toggle from '../components/Toggle';
 import { useParams, Link } from 'react-router-dom';
 import { IMDBMovie } from '../model/movie';
+import Favorites from './Favorites';
 
-type Props = {
-  movieDetail: IMDBMovie;
-}
+// type Props = {
+//   movieDetail: IMDBMovie;
+//   imdbIDs: string[];
+// }
 
-const Detail: FunctionComponent = (movieDetail) => {
+const Detail: FunctionComponent = () => {
   const [movie, setMovie] = useState<IMDBMovie | null>(null);
-  const params = useParams<{ imdbID: string }>(); 
+  const params = useParams<{ imdbID: string }>();
   const [isFavorite, setIsFavorite] = useState(false);
-  
+
+  const checkItemInArray = () => {
+    const favoriteLS = localStorage.getItem("favorites");
+    const favoriteMovies: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null; 
+    const imdbIDs = favoriteMovies?.map((movie: IMDBMovie) => movie.imdbID) || [];
+    if (movie && imdbIDs.includes(movie?.imdbID))
+      setIsFavorite(true)
+    else {
+      setIsFavorite(false)
+    }
+  }
+
   useEffect(() => {
     const getMovie = async () => {
       const result = await fetch(`http://www.omdbapi.com/?apikey=1a993ee0&i=${params.imdbID}`);
-      console.log(result);
       const data = await result.json();
-  
-  
+
       setMovie(data);
     };
     getMovie();
+    
   }, [params.imdbID]);
+
+  useEffect(() => {
+    checkItemInArray();
+  }, [movie])
 
   const handleToggle = () => {
     const favoriteLS = localStorage.getItem("favorites");
@@ -33,8 +49,7 @@ const Detail: FunctionComponent = (movieDetail) => {
         return true
       }) 
       setIsFavorite(false)
-      localStorage.setItem("favorites", JSON.stringify([]));
-
+      localStorage.setItem("favorites", JSON.stringify(newMovies));
     } 
     if(!isFavorite) {
       setIsFavorite(true)

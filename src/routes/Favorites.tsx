@@ -4,8 +4,7 @@ import { IMDBMovie } from '../model/movie';
 
 const Favorites: FunctionComponent = () => {
   const favoriteLS = localStorage.getItem("favorites");
-  const favoriteMovies: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null; 
-  
+  const favoriteMovies: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null;   
 
   return (
     <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
