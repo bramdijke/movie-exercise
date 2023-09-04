@@ -4,9 +4,15 @@ import { Link } from 'react-router-dom';
 
 type Props = {
   movie: IMDBMovie;
+  onDelete: (imdbID: string) => void;
+
 }
 
-const FavoriteMovieCard: FunctionComponent<Props> = ({ movie }) => {
+const FavoriteMovieCard: FunctionComponent<Props> = ({ movie, onDelete }) => {
+  const handleDelete = () => {
+    onDelete(movie.imdbID);
+  }
+
   return (
     <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
       <div className="flex-1 flex flex-col">
@@ -19,7 +25,10 @@ const FavoriteMovieCard: FunctionComponent<Props> = ({ movie }) => {
             <dd className="text-gray-500 text-sm">{movie.Year}</dd>
           </dl>
         </div>
-
+        <div className='flex justify-center gap-5 mb-2'>
+          <Link className='cursor-pointer text-orange-500' to='/movies/:imdbID/edit'>Edit</Link>
+          <button className='cursor-pointer text-red-600' onClick={handleDelete}>Delete</button>
+        </div>
       </div>
     </li>
   );

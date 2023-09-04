@@ -1,4 +1,10 @@
-import { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
+import { IMDBMovie } from '../model/movie';
+import { Link } from 'react-router-dom';
+
+type Props = {
+  movie: IMDBMovie;
+}
 
 const Edit: FunctionComponent = () => {
   return (

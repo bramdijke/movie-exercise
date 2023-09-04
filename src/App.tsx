@@ -5,6 +5,7 @@ import MovieList from './components/MovieList';
 import Favorites from './routes/Favorites';
 import { useState } from 'react';
 import Detail from './routes/Detail';
+import Edit from './routes/Edit';
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
@@ -49,6 +50,7 @@ const App = () => {
             <Route path='/' element={<MovieList searchValue={searchValue} />}/>
             <Route path='/favorites' element={<Favorites />}/>
             <Route path='/movies/:imdbID' element={<Detail />}/>
+            <Route path='/movies/:imdbID/edit' element={<Edit />}/>
           </Routes>
           </main>
         </div>

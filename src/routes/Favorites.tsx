@@ -1,15 +1,28 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import FavoriteMovieCard from '../components/FavoriteMovieCard';
 import { IMDBMovie } from '../model/movie';
 
 const Favorites: FunctionComponent = () => {
-  const favoriteLS = localStorage.getItem("favorites");
-  const favoriteMovies: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null;   
+  const [favoriteMovies, setFavoriteMovies] = useState<IMDBMovie[]>([]);
+
+  useEffect(() => {
+    const favoriteLS = localStorage.getItem("favorites");
+    const favoriteMoviesData: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null;
+    if (favoriteMoviesData) {
+      setFavoriteMovies(favoriteMoviesData);
+    }
+  }, []);
+
+  const handleDeleteMovie = (imdbID: string) => {
+    const updatedMovies = favoriteMovies.filter(movie => movie.imdbID !== imdbID);
+    setFavoriteMovies(updatedMovies);
+    localStorage.setItem("favorites", JSON.stringify(updatedMovies));
+  };
 
   return (
     <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {favoriteMovies?.map((movie: IMDBMovie) => (
-        <FavoriteMovieCard key={movie.imdbID} movie={movie} />
+      {favoriteMovies.map((movie: IMDBMovie) => (
+        <FavoriteMovieCard key={movie.imdbID} movie={movie} onDelete={handleDeleteMovie} />
       ))}
     </ul>
   );
