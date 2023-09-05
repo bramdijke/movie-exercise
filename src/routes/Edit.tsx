@@ -1,19 +1,33 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useEffect } from 'react';
 import { IMDBMovie } from '../model/movie';
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-type Props = {
-  movie: IMDBMovie;
-}
+const Edit = () => {
+  const params = useParams<{ imdbID: string }>();
+  const [editMovie, setEditMovie] = useState<IMDBMovie | null>(null);
 
-const Edit: FunctionComponent = () => {
+  useEffect(() => {
+    const getMovie = async () => {
+      const result = await fetch(`http://www.omdbapi.com/?apikey=1a993ee0&i=${params.imdbID}`);
+      const data = await result.json();    
+
+      setEditMovie(data);
+      console.log(data)
+    }
+    getMovie();
+  }, [params.imdbID])
+
+  const handleEditChange = (event: any) => {
+    setEditMovie(event.target.value);
+  }
+
   return (
     <div className="bg-white">
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start">
           <div>
             <div className="w-full aspect-w-1 aspect-h-1">
-              <img className="w-full h-full object-center object-cover sm:rounded-lg" />
+              <img className="w-full h-full object-center object-cover sm:rounded-lg" src={editMovie?.Poster}/>
             </div>
           </div>
           <form>
@@ -27,6 +41,8 @@ const Edit: FunctionComponent = () => {
                     name="Title"
                     type="text"
                     className="shadow-sm p-2 block w-full sm:text-sm border-gray-300 rounded-md"
+                    value={editMovie?.Title}
+                    onChange={handleEditChange}
                   />
                 </div>
               </div>
@@ -40,6 +56,8 @@ const Edit: FunctionComponent = () => {
                     name="Year"
                     type="text"
                     className="shadow-sm p-2 block w-full sm:text-sm border-gray-300 rounded-md"
+                    value={editMovie?.Year}
+                    onChange={handleEditChange}
                   />
                 </div>
               </div>
@@ -53,6 +71,8 @@ const Edit: FunctionComponent = () => {
                     name="Actors"
                     type="text"
                     className="shadow-sm p-2 block w-full sm:text-sm border-gray-300 rounded-md"
+                    value={editMovie?.Actors}
+                    onChange={handleEditChange}
                   />
                 </div>
               </div>
