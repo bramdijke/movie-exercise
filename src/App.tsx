@@ -50,7 +50,7 @@ const App = () => {
             <Route path='/' element={<MovieList searchValue={searchValue} />}/>
             <Route path='/favorites' element={<Favorites />}/>
             <Route path='/movies/:imdbID' element={<Detail />}/>
-            <Route path='/movies/:imdbID/edit' element={<Edit />}/>
+            <Route path='/favorites/edit/:imdbID' element={<Edit />}/>
           </Routes>
           </main>
         </div>

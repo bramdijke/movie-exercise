@@ -26,7 +26,7 @@ const FavoriteMovieCard: FunctionComponent<Props> = ({ movie, onDelete }) => {
           </dl>
         </div>
         <div className='flex justify-center gap-5 mb-2'>
-          <Link className='cursor-pointer text-orange-500' to='/movies/:imdbID/edit'>Edit</Link>
+          <Link className='cursor-pointer text-orange-500' to='/favorites/edit/:imdbID'>Edit</Link>
           <button className='cursor-pointer text-red-600' onClick={handleDelete}>Delete</button>
         </div>
       </div>
