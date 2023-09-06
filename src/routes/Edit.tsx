@@ -5,6 +5,9 @@ import { useParams } from 'react-router-dom';
 const Edit = () => {
   const params = useParams<{ imdbID: string }>();
   const [editMovie, setEditMovie] = useState<IMDBMovie | null>(null);
+  const [title, setTitle] = useState<string | undefined>(editMovie?.Title);
+  const [year, setYear] = useState<string | undefined>(editMovie?.Year);
+  const [actors, setActors] = useState<string | undefined>(editMovie?.Actors);
 
   useEffect(() => {
     const getMovie = async () => {
@@ -12,14 +15,18 @@ const Edit = () => {
       const data = await result.json();    
 
       setEditMovie(data);
+      setTitle(data.Title);
+      setYear(data.Year);
+      setActors(data.Actors);
+
       console.log(data)
     }
     getMovie();
   }, [params.imdbID])
 
-  const handleEditChange = (event: any) => {
-    setEditMovie(event.target.value);
-  }
+  // const handleEditChange = (event: any) => {
+  //   setEditMovie(event.target.value);
+  // }
 
   return (
     <div className="bg-white">
@@ -41,8 +48,8 @@ const Edit = () => {
                     name="Title"
                     type="text"
                     className="shadow-sm p-2 block w-full sm:text-sm border-gray-300 rounded-md"
-                    value={editMovie?.Title}
-                    onChange={handleEditChange}
+                    value={title}
+                    onChange={(event) => setTitle(event.target.value)}
                   />
                 </div>
               </div>
@@ -56,8 +63,8 @@ const Edit = () => {
                     name="Year"
                     type="text"
                     className="shadow-sm p-2 block w-full sm:text-sm border-gray-300 rounded-md"
-                    value={editMovie?.Year}
-                    onChange={handleEditChange}
+                    value={year}
+                    onChange={(event) => setYear(event.target.value)}
                   />
                 </div>
               </div>
@@ -71,8 +78,8 @@ const Edit = () => {
                     name="Actors"
                     type="text"
                     className="shadow-sm p-2 block w-full sm:text-sm border-gray-300 rounded-md"
-                    value={editMovie?.Actors}
-                    onChange={handleEditChange}
+                    value={actors}
+                    onChange={(event) => setActors(event.target.value)}
                   />
                 </div>
               </div>
