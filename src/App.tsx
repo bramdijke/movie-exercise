@@ -48,7 +48,7 @@ const App = () => {
           <main className="lg:col-span-9">{/* routing */}
           <Routes>
             <Route path='/' element={<MovieList searchValue={searchValue} />}/>
-            <Route path='/favorites' element={<Favorites />}/>
+            <Route path='/favorites' element={<Favorites/>}/>
             <Route path='/movies/:imdbID' element={<Detail />}/>
             <Route path='/favorites/edit/:imdbID' element={<Edit />}/>
           </Routes>
