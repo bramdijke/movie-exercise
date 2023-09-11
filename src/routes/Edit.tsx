@@ -8,7 +8,6 @@
         const [title, setTitle] = useState<string | undefined>(editMovie?.Title);
         const [year, setYear] = useState<string | undefined>(editMovie?.Year);
         const [actors, setActors] = useState<string | undefined>(editMovie?.Actors);
-        const [movie, setMovie] = useState<IMDBMovie | null>(null);
 
         useEffect(() => {
           const getMovie = async () => {
