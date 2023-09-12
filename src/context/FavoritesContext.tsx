@@ -11,8 +11,6 @@ export const FavoritesContext = createContext<FavoritesContextType | undefined>(
 export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [favoriteMovies, setFavoriteMovies] = useState<IMDBMovie[]>([]);
 
-
-
   return (
     <FavoritesContext.Provider value={{ favoriteMovies, setFavoriteMovies }}>
       {children}
