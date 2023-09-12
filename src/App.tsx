@@ -6,11 +6,13 @@ import Favorites from './routes/Favorites';
 import { useState } from 'react';
 import Detail from './routes/Detail';
 import Edit from './routes/Edit';
+import { FavoritesProvider } from './context/FavoritesContext';
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
 
   return (
+    <FavoritesProvider>
     <div className="min-h-full">
       <header className="bg-white shadow-sm lg:static lg:overflow-y-visible">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,6 +58,7 @@ const App = () => {
         </div>
       </div>
     </div>
+    </FavoritesProvider>
   );
 };
 

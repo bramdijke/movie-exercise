@@ -1,9 +1,15 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { FunctionComponent, useState, useEffect, useContext } from 'react';
 import FavoriteMovieCard from '../components/FavoriteMovieCard';
 import { IMDBMovie } from '../model/movie';
+import { FavoritesContext } from '../context/FavoritesContext';
 
 const Favorites: FunctionComponent = () => {
-  const [favoriteMovies, setFavoriteMovies] = useState<IMDBMovie[]>([]);
+  const context = useContext(FavoritesContext);
+
+  if (!context) {
+    return <div>Loading..</div>
+  }
+  const { favoriteMovies, setFavoriteMovies } = context;
 
   useEffect(() => {
     const favoriteLS = localStorage.getItem("favorites");
