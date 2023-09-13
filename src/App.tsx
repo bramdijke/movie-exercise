@@ -41,13 +41,12 @@ const App = () => {
               className="sticky top-4 divide-y divide-gray-300"
             >
               <div className="flex flex-col pb-8 space-y-1">
-                {/* navigation */}
                 <Link className="bg-gray-200 p-3 rounded" to='/'>Home</Link>
                 <Link className="bg-gray-200 p-3 rounded" to='/favorites'>Favorite</Link>
               </div>
             </nav>
           </div>
-          <main className="lg:col-span-9">{/* routing */}
+          <main className="lg:col-span-9">
           <Routes>
             <Route path='/' element={<MovieList searchValue={searchValue} />}/>
             <Route path='/favorites' element={<Favorites/>}/>
