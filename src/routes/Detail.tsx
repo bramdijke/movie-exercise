@@ -3,6 +3,7 @@ import Toggle from '../components/Toggle';
 import { useParams, Link } from 'react-router-dom';
 import { IMDBMovie } from '../model/movie';
 import Favorites from './Favorites';
+import ReviewForm from '../components/ReviewForm';
 
 // type Props = {
 //   movieDetail: IMDBMovie;
@@ -91,6 +92,7 @@ const Detail: FunctionComponent = () => {
           </div>
         </div>
       </div>
+      <ReviewForm />
     </div>
   );
 };  
