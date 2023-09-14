@@ -27,7 +27,7 @@ const App = () => {
                 <Search
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
-                />
+                /> 
               </div>
             </div>
           </div>

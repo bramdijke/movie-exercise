@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import { Route, useLocation } from 'react-router-dom';
 
 type Props = {
   searchValue: string;
@@ -6,7 +7,8 @@ type Props = {
 }
 
 const Search = ({ searchValue, setSearchValue }: Props) => {
-  // console.log('search', props);
+  const location = useLocation();
+  const isSearchEnabled = location.pathname === '/';  
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     console.log(event);
@@ -33,12 +35,13 @@ const Search = ({ searchValue, setSearchValue }: Props) => {
           </svg>
         </div>
         <input
-          className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
+          className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm disabled:bg-gray-200 disabled: text-gray-500"
           placeholder="Search"
           type="search"
           value={searchValue}
           onChange={handleInputChange}
-        />
+          disabled={!isSearchEnabled} // Enable or disable based on the route
+          />
       </div>
     </div>
   );
