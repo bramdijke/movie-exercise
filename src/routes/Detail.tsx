@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import { IMDBMovie } from '../model/movie';
 import Favorites from './Favorites';
 import ReviewForm from '../components/ReviewForm';
+import Reviews from '../components/Reviews';
 
 // type Props = {
 //   movieDetail: IMDBMovie;
@@ -58,6 +59,8 @@ const Detail: FunctionComponent = () => {
     }
   }
 
+  const ReviewsLS = localStorage.getItem("reviews");
+
   return (
     <div className="bg-white">
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -93,6 +96,7 @@ const Detail: FunctionComponent = () => {
         </div>
       </div>
       <ReviewForm />
+      <Reviews />
     </div>
   );
 };  
