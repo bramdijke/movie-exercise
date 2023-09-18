@@ -96,7 +96,7 @@ const Detail: FunctionComponent = () => {
         </div>
       </div>
       <ReviewForm />
-      <Reviews />
+      <Reviews movie_id={params.imdbID}/>
     </div>
   );
 };  
