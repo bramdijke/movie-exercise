@@ -13,19 +13,28 @@ const MovieList = ({ searchValue }: Props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://www.omdbapi.com/?apikey=1a993ee0&s=${searchValue}`);
+        let apiUrl = '';
+        if (searchValue) {
+          apiUrl = `http://www.omdbapi.com/?apikey=1a993ee0&s=${searchValue}`;
+        } else {
+          // Use a default search term like "pokemon" when searchValue is empty
+          apiUrl = 'http://www.omdbapi.com/?apikey=1a993ee0&s=pokemon';
+        }
+
+        const response = await fetch(apiUrl);
         const jsonData = await response.json();
         setData(jsonData.Search); 
       } catch (error) {
         console.error(error);
       }
-    };
+    };  
 
     fetchData();
   }, [searchValue]);
 
   return (
     <div>
+      <h2 className='text-xl font-medium pb-4'>Results containing {searchValue} </h2>
       {data ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data.map((item: IMDBMovie) => (

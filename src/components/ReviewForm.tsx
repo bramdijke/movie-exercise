@@ -49,7 +49,8 @@ const ReviewForm  = () => {
                     value={formik.values.review_rating}
                     onChange={formik.handleChange}
                     max="10"
-                    ></input>                </div>
+                    ></input>                
+                </div>
                 <div>
                 <label>Message</label>
                 <input 
@@ -60,7 +61,8 @@ const ReviewForm  = () => {
                     placeholder="Write your message here"
                     value={formik.values.review_message}
                     onChange={formik.handleChange}
-                    ></input>                </div>
+                    ></input>                
+                </div>
                 <button
                         className="hover:text-black bg-gray-200 p-3 rounded"
                         type="submit"
