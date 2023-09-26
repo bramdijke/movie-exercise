@@ -1,9 +1,17 @@
 import { useFormik } from "formik";
 import { useLocation } from "react-router-dom";
+import { z } from "zod";
 
 const ReviewForm  = () => {
     const location = useLocation();
     const movieId = location.pathname.split("/").pop();
+
+    const reviewSchema = z.object({
+        movie_id: z.string(),
+        review_name: z.string().max(5),
+        review_rating: z.number().max(10),
+        review_message: z.string().max(100)
+    })
 
     const formik = useFormik({
         initialValues: {
@@ -18,6 +26,15 @@ const ReviewForm  = () => {
             
             existingReviews.push(values);
             localStorage.setItem("reviews", JSON.stringify(existingReviews));
+        },
+        validate: (values) => { 
+            const result = reviewSchema.safeParse(values)
+            if(result.success) return;
+            const errors: Record<string, string> = {};
+      result.error.issues.forEach((error) => {
+        errors[error.path[0]] = error.message;
+      });
+      return errors;
         }
     })
 
