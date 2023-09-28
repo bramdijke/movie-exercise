@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useLocation } from "react-router-dom";
-import { z } from "zod";
+import { number, z } from "zod";
 
 const ReviewForm  = () => {
     const location = useLocation();
@@ -8,9 +8,9 @@ const ReviewForm  = () => {
 
     const reviewSchema = z.object({
         movie_id: z.string(),
-        review_name: z.string().max(5),
-        review_rating: z.number().max(10),
-        review_message: z.string().max(100)
+        review_name: z.string().max(10, { message: "Name can only be 10 characters long"}),
+        review_rating: z.number().max(10, { message: "Rating must have a value between 1 and 10"}),
+        review_message: z.string().max(100, { message: "Message can have a maximum of 100 characters"})
     })
 
     const formik = useFormik({
@@ -26,16 +26,14 @@ const ReviewForm  = () => {
             
             existingReviews.push(values);
             localStorage.setItem("reviews", JSON.stringify(existingReviews));
+
+            window.location.reload();
         },
         validate: (values) => { 
-            const result = reviewSchema.safeParse(values)
-            if(result.success) return;
-            const errors: Record<string, string> = {};
-      result.error.issues.forEach((error) => {
-        errors[error.path[0]] = error.message;
-      });
-      return errors;
-        }
+            const result = reviewSchema.safeParse(values);
+            if (result.success) return {};
+            return result.error.flatten().fieldErrors;
+        }        
     })
 
     return (
@@ -54,6 +52,8 @@ const ReviewForm  = () => {
                     value={formik.values.review_name}
                     onChange={formik.handleChange}
                     ></input>
+                    <span>{formik.errors.review_name}</span>                
+
                 </div>
                 <div>
                 <label>Rating</label>
@@ -66,7 +66,8 @@ const ReviewForm  = () => {
                     value={formik.values.review_rating}
                     onChange={formik.handleChange}
                     max="10"
-                    ></input>                
+                    ></input>
+                   <span>{formik.errors.review_rating}</span>               
                 </div>
                 <div>
                 <label>Message</label>
@@ -78,7 +79,8 @@ const ReviewForm  = () => {
                     placeholder="Write your message here"
                     value={formik.values.review_message}
                     onChange={formik.handleChange}
-                    ></input>                
+                    ></input>    
+                    <span>{formik.errors.review_message}</span>                            
                 </div>
                 <button
                         className="hover:text-black bg-gray-200 p-3 rounded"

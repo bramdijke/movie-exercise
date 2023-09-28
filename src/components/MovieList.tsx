@@ -33,7 +33,7 @@ const MovieList = ({ searchValue }: Props) => {
 
   return (
     <div>
-      <h2 className='text-xl font-medium pb-4 flex'>Results containing: <p className='font-bold'>{searchValue}</p> </h2>
+      <h2 className='text-xl font-medium pb-4 flex'>Results containing:<p className='font-bold ml-1'>{searchValue}</p> </h2>
       {data ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {data.map((item: IMDBMovie) => (
