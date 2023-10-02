@@ -26,7 +26,6 @@ const ReviewForm  = () => {
             
             existingReviews.push(values);
             localStorage.setItem("reviews", JSON.stringify(existingReviews));
-
             window.location.reload();
         },
         validate: (values) => { 
