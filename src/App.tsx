@@ -7,11 +7,16 @@ import { useState } from 'react';
 import Detail from './routes/Detail';
 import Edit from './routes/Edit';
 import { FavoritesProvider } from './context/FavoritesContext';
+import { useQuery, QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const queryClient = new QueryClient()
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
 
   return (
+    <QueryClientProvider client={ queryClient }>
     <FavoritesProvider>
     <div className="min-h-full">
       <header className="bg-white shadow-sm lg:static lg:overflow-y-visible">
@@ -58,6 +63,8 @@ const App = () => {
       </div>
     </div>
     </FavoritesProvider>
+    <ReactQueryDevtools/>
+    </QueryClientProvider>
   );
 };
 
