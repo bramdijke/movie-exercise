@@ -13,7 +13,6 @@ const MovieList = ({ searchValue }: Props) => {
     if (searchValue) {
       apiUrl = `http://www.omdbapi.com/?apikey=1a993ee0&s=${searchValue}`;
     } else {
-      // Use a default search term like "pokemon" when searchValue is empty
       apiUrl = 'http://www.omdbapi.com/?apikey=1a993ee0&s=pokemon';
     }
   
