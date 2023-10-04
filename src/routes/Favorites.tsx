@@ -28,11 +28,14 @@ const Favorites: FunctionComponent = () => {
   console.log(favoriteMovies)
 
   return (
+    <div>
+    <h2 className='text-xl font-medium pb-4 flex'>Favorite Movies</h2>
     <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {favoriteMovies.map((movie: IMDBMovie) => (
         <FavoriteMovieCard key={movie.imdbID} movie={movie} onDelete={handleDeleteMovie} />
       ))}
     </ul>
+    </div>
   );
 };
 
