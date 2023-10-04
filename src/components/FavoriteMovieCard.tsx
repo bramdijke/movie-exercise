@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 type Props = {
   movie: IMDBMovie;
   onDelete: (imdbID: string) => void;
-
 }
 
 const FavoriteMovieCard: FunctionComponent<Props> = ({ movie, onDelete }) => {
   const handleDelete = () => {
     onDelete(movie.imdbID);
   }
+//Delete moet ook in context
 
   return (
     <li className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
