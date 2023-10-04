@@ -23,21 +23,26 @@ const MovieList = ({ searchValue }: Props) => {
   
   const { data, error, isLoading } = useQuery(['movies', searchValue], () => fetchMovies(searchValue));
   
-
   return (
     <div>
       <h2 className='text-xl font-medium pb-4 flex'>Results containing:<p className='font-bold ml-1'>{searchValue}</p> </h2>
-      {isLoading ? (
+      {isLoading && (
       <p>Loading...</p>
-    ) : error ? (
+    )} 
+    
+    {!isLoading && error &&  (
       <p>An Error occurred</p>
-    ) : data ? (
+    )} 
+    
+     {!isLoading && !error && data && (
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {data.map((item: IMDBMovie) => (
           <MovieCard key={item.imdbID} movie={item} />
         ))}
       </div>
-    ) : (
+    )}  
+    
+    {!data && !isLoading && (
       <p>No data available</p>
     )}
     </div>
