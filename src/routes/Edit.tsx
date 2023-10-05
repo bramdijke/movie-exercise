@@ -1,15 +1,18 @@
-      import React, { FunctionComponent, useState, useEffect } from 'react';
+      import React, { FunctionComponent, useState, useEffect, useContext } from 'react';
       import { IMDBMovie } from '../model/movie';
       import { useParams } from 'react-router-dom';
+      import { FavoritesContext } from '../context/FavoritesContext';
 
-      const Edit = () => {
+      const Edit: FunctionComponent = () => {
         const params = useParams<{ imdbID: string }>();
+        const { favoriteMovies, updateFavoriteMovie } = useContext(FavoritesContext)!;
         const [editMovie, setEditMovie] = useState<IMDBMovie | null>(null);
         const [title, setTitle] = useState<string | undefined>(editMovie?.Title);
         const [year, setYear] = useState<string | undefined>(editMovie?.Year);
         const [actors, setActors] = useState<string | undefined>(editMovie?.Actors);
+        const movieID = params?.imdbID || '';
 
-        useEffect(() => {
+        useEffect (() => {
           const getMovie = async () => {
             const result = await fetch(`http://www.omdbapi.com/?apikey=1a993ee0&i=${params.imdbID}`);
             const data = await result.json();    
@@ -53,25 +56,12 @@
             Website: editMovie?.Website || '',
             Response: editMovie?.Response || '',
           };
-
+          
           setEditMovie(updatedMovie);
 
           console.log(updatedMovie)
-
-          const favoriteLS = localStorage.getItem('favorites');
-          const favoriteMoviesData: IMDBMovie[] = favoriteLS ? JSON.parse(favoriteLS) : [];
-          
-          const updatedFavorites = favoriteMoviesData.map((movie) => {
-            if (movie.imdbID === params.imdbID) {
-              return updatedMovie;
-              
-            }
-            return movie;
-          });
-
-          console.log(updatedFavorites)
-
-          localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
+          //Wat hier staat (map) moet ook in de context
+          updateFavoriteMovie(movieID, updatedMovie)
         }
 
         return (
