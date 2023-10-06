@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useContext } from 'react';
 import { IMDBMovie } from '../model/movie';
 import { Link } from 'react-router-dom';
+import { FavoritesContext } from '../context/FavoritesContext';
 
 type Props = {
   movie: IMDBMovie;
@@ -8,9 +9,12 @@ type Props = {
 }
 
 const FavoriteMovieCard: FunctionComponent<Props> = ({ movie, onDelete }) => {
+  const { deleteFavoriteMovie }: any = useContext(FavoritesContext);
+
   const handleDelete = () => {
-    onDelete(movie.imdbID);
+    deleteFavoriteMovie(movie.imdbID);
   }
+
 //Delete moet ook in context
 
   return (

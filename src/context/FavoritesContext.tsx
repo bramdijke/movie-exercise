@@ -6,6 +6,7 @@ interface FavoritesContextType {
   favoriteMovies: IMDBMovie[];
   setFavoriteMovies: React.Dispatch<React.SetStateAction<IMDBMovie[]>>;
   updateFavoriteMovie: (imdbID: string, updatedMovie: IMDBMovie) => void;
+  deleteFavoriteMovie: (imdbID: string) => void;
 }
 export const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
@@ -32,12 +33,18 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children 
     updateFavoritesLS(updatedFavorites);
   };
 
+  const deleteFavoriteMovie = (imdbID: string) => {
+    const updatedFavorites = favoriteMovies.filter((movie) => movie.imdbID !== imdbID);
+    setFavoriteMovies(updatedFavorites); 
+    updateFavoritesLS(updatedFavorites); 
+  };
+
   useEffect(() => {
     getFavoritesLS();
   }, []);
 
   return (
-    <FavoritesContext.Provider value={{ favoriteMovies, setFavoriteMovies, updateFavoriteMovie }}>
+    <FavoritesContext.Provider value={{ favoriteMovies, setFavoriteMovies, updateFavoriteMovie, deleteFavoriteMovie }}>
       {children}
     </FavoritesContext.Provider>
   );
