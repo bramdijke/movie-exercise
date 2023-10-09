@@ -14,7 +14,6 @@ const FavoriteMovieCard: FunctionComponent<Props> = ({ movie, onDelete }) => {
   const handleDelete = () => {
     deleteFavoriteMovie(movie.imdbID);
   }
-
 //Delete moet ook in context
 
   return (
