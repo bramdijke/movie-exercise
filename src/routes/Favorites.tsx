@@ -11,14 +11,6 @@ const Favorites: FunctionComponent = () => {
   }
   const { favoriteMovies, setFavoriteMovies } = context;
 
-  useEffect(() => {
-    const favoriteLS = localStorage.getItem("favorites");
-    const favoriteMoviesData: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null;
-    if (favoriteMoviesData) {
-      setFavoriteMovies(favoriteMoviesData);
-    }
-  }, []);
-
   const handleDeleteMovie = (imdbID: string) => {
     const updatedMovies = favoriteMovies.filter(movie => movie.imdbID !== imdbID);
     setFavoriteMovies(updatedMovies);

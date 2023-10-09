@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { IMDBMovie } from '../model/movie';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 
 interface FavoritesContextType {
   favoriteMovies: IMDBMovie[];
@@ -19,10 +19,14 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children 
     setFavoriteMovies(favoriteMoviesData);
   };
 
+  useEffect(() => {
+    getFavoritesLS();
+  }, []);
+
   const updateFavoritesLS = (updatedFavorites: IMDBMovie[]) => {
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
-  
+
   const updateFavoriteMovie = (imdbID: string, updatedMovie: IMDBMovie) => {
     const updatedFavorites = favoriteMovies.map((movie) => {
       if (movie.imdbID === imdbID) {
@@ -30,18 +34,15 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children 
       }
       return movie;
     });
+    setFavoriteMovies(updatedFavorites);
     updateFavoritesLS(updatedFavorites);
   };
 
   const deleteFavoriteMovie = (imdbID: string) => {
     const updatedFavorites = favoriteMovies.filter((movie) => movie.imdbID !== imdbID);
-    setFavoriteMovies(updatedFavorites); 
-    updateFavoritesLS(updatedFavorites); 
+    setFavoriteMovies(updatedFavorites);
+    updateFavoritesLS(updatedFavorites);
   };
-
-  useEffect(() => {
-    getFavoritesLS();
-  }, []);
 
   return (
     <FavoritesContext.Provider value={{ favoriteMovies, setFavoriteMovies, updateFavoriteMovie, deleteFavoriteMovie }}>
@@ -49,5 +50,3 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children 
     </FavoritesContext.Provider>
   );
 };
-
-//CRUD FavoriteMovies
