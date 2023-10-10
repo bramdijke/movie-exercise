@@ -3,12 +3,13 @@ import { IMDBMovie } from '../model/movie';
 import { ReactNode } from 'react';
 
 interface FavoritesContextType {
-  favoriteMovies: IMDBMovie[];
-  setFavoriteMovies: React.Dispatch<React.SetStateAction<IMDBMovie[]>>;
-  updateFavoriteMovie: (imdbID: string, updatedMovie: IMDBMovie) => void;
-  deleteFavoriteMovie: (imdbID: string) => void;
+  favoriteMovies?: IMDBMovie[];
+  setFavoriteMovies?: React.Dispatch<React.SetStateAction<IMDBMovie[]>>;
+  updateFavoriteMovie?: (imdbID: string, updatedMovie: IMDBMovie) => void;
+  deleteFavoriteMovie?: (imdbID: string) => void;
+  updateFavoritesLS: (updatedFavorites: IMDBMovie[]) => void
 }
-export const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
+export const FavoritesContext = createContext<FavoritesContextType>({});
 
 export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [favoriteMovies, setFavoriteMovies] = useState<IMDBMovie[]>([]);
@@ -45,7 +46,15 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children 
   };
 
   return (
-    <FavoritesContext.Provider value={{ favoriteMovies, setFavoriteMovies, updateFavoriteMovie, deleteFavoriteMovie }}>
+    <FavoritesContext.Provider
+      value={{
+        favoriteMovies,
+        setFavoriteMovies,
+        updateFavoriteMovie,
+        deleteFavoriteMovie, 
+        updateFavoritesLS
+      }}
+    >
       {children}
     </FavoritesContext.Provider>
   );

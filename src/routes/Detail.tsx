@@ -1,10 +1,11 @@
-import { FunctionComponent, useState, useEffect } from 'react';
+import { FunctionComponent, useState, useEffect, useContext } from 'react';
 import Toggle from '../components/Toggle';
 import { useParams, Link } from 'react-router-dom';
 import { IMDBMovie } from '../model/movie';
 import Favorites from './Favorites';
 import ReviewForm from '../components/ReviewForm';
 import Reviews from '../components/Reviews';
+import { FavoritesContext } from '../context/FavoritesContext';
 
 // type Props = {
 //   movieDetail: IMDBMovie;
@@ -15,10 +16,9 @@ const Detail: FunctionComponent = () => {
   const [movie, setMovie] = useState<IMDBMovie | null>(null);
   const params = useParams<{ imdbID: string }>();
   const [isFavorite, setIsFavorite] = useState(false);
+  const { favoriteMovies } = useContext(FavoritesContext)  
 
   const checkItemInArray = () => {
-    const favoriteLS = localStorage.getItem("favorites");
-    const favoriteMovies: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null; 
     const imdbIDs = favoriteMovies?.map((movie: IMDBMovie) => movie.imdbID) || [];
     if (movie && imdbIDs.includes(movie?.imdbID))
       setIsFavorite(true)
@@ -43,8 +43,6 @@ const Detail: FunctionComponent = () => {
   }, [movie])
 
   const handleToggle = () => {
-    const favoriteLS = localStorage.getItem("favorites");
-  const favoriteMovies: IMDBMovie[] | null = favoriteLS ? JSON.parse(favoriteLS) : null; 
     if(isFavorite) {
       const newMovies = favoriteMovies?.filter((favoriteMovie) => {
         if (favoriteMovie.imdbID === movie?.imdbID) return false;

@@ -12,9 +12,8 @@ const Favorites: FunctionComponent = () => {
   const { favoriteMovies, setFavoriteMovies } = context;
 
   const handleDeleteMovie = (imdbID: string) => {
-    const updatedMovies = favoriteMovies.filter(movie => movie.imdbID !== imdbID);
+    const updatedMovies = favoriteMovies?.filter(movie => movie.imdbID !== imdbID);
     setFavoriteMovies(updatedMovies);
-    localStorage.setItem("favorites", JSON.stringify(updatedMovies));
   };
 
   console.log(favoriteMovies)
