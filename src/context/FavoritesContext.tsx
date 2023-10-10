@@ -3,11 +3,12 @@ import { IMDBMovie } from '../model/movie';
 import { ReactNode } from 'react';
 
 interface FavoritesContextType {
-  favoriteMovies?: IMDBMovie[];
-  setFavoriteMovies?: React.Dispatch<React.SetStateAction<IMDBMovie[]>>;
+  favoriteMovies: IMDBMovie[];
+  setFavoriteMovies: React.Dispatch<React.SetStateAction<IMDBMovie[]>>;
+  createFavoriteMovie: (movie: IMDBMovie) => void;
   updateFavoriteMovie?: (imdbID: string, updatedMovie: IMDBMovie) => void;
-  deleteFavoriteMovie?: (imdbID: string) => void;
-  updateFavoritesLS: (updatedFavorites: IMDBMovie[]) => void
+  deleteFavoriteMovie: (imdbID: string) => void;
+  updateFavoritesLS: (updatedFavorites: IMDBMovie[]) => void;
 }
 export const FavoritesContext = createContext<FavoritesContextType>({});
 
@@ -26,6 +27,12 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children 
 
   const updateFavoritesLS = (updatedFavorites: IMDBMovie[]) => {
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  };
+
+  const createFavoriteMovie = (movie: IMDBMovie) => {
+    const updatedFavorites = [...favoriteMovies, movie];
+    setFavoriteMovies(updatedFavorites);
+    updateFavoritesLS(updatedFavorites);
   };
 
   const updateFavoriteMovie = (imdbID: string, updatedMovie: IMDBMovie) => {
@@ -52,7 +59,8 @@ export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children 
         setFavoriteMovies,
         updateFavoriteMovie,
         deleteFavoriteMovie, 
-        updateFavoritesLS
+        updateFavoritesLS,
+        createFavoriteMovie
       }}
     >
       {children}

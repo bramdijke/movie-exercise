@@ -16,7 +16,7 @@ const Detail: FunctionComponent = () => {
   const [movie, setMovie] = useState<IMDBMovie | null>(null);
   const params = useParams<{ imdbID: string }>();
   const [isFavorite, setIsFavorite] = useState(false);
-  const { favoriteMovies } = useContext(FavoritesContext)  
+  const { favoriteMovies, createFavoriteMovie, deleteFavoriteMovie } = useContext(FavoritesContext)  
 
   const checkItemInArray = () => {
     const imdbIDs = favoriteMovies?.map((movie: IMDBMovie) => movie.imdbID) || [];
@@ -43,21 +43,18 @@ const Detail: FunctionComponent = () => {
   }, [movie])
 
   const handleToggle = () => {
-    if(isFavorite) {
-      const newMovies = favoriteMovies?.filter((favoriteMovie) => {
-        if (favoriteMovie.imdbID === movie?.imdbID) return false;
-        return true
-      }) 
-      setIsFavorite(false)
-      localStorage.setItem("favorites", JSON.stringify(newMovies));
-    } 
-    if(!isFavorite) {
-      setIsFavorite(true)
-      localStorage.setItem("favorites", JSON.stringify(favoriteMovies ? [...favoriteMovies, movie] : [movie]));
+    if (isFavorite) {
+      if (movie) {
+        deleteFavoriteMovie(movie.imdbID);
+        setIsFavorite(false);
+      }
+    } else {
+      if (movie) {
+        createFavoriteMovie(movie);
+        setIsFavorite(true);
+      }
     }
-  }
-
-  const ReviewsLS = localStorage.getItem("reviews");
+  };
 
   return (
     <div className="bg-white">
