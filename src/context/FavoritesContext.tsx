@@ -6,7 +6,7 @@ interface FavoritesContextType {
   favoriteMovies: IMDBMovie[];
   setFavoriteMovies: React.Dispatch<React.SetStateAction<IMDBMovie[]>>;
   createFavoriteMovie: (movie: IMDBMovie) => void;
-  updateFavoriteMovie?: (imdbID: string, updatedMovie: IMDBMovie) => void;
+  updateFavoriteMovie: (imdbID: string, updatedMovie: IMDBMovie) => void;
   deleteFavoriteMovie: (imdbID: string) => void;
   updateFavoritesLS: (updatedFavorites: IMDBMovie[]) => void;
 }
