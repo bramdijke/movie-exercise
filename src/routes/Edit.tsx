@@ -60,7 +60,6 @@
           setEditMovie(updatedMovie);
 
           console.log(updatedMovie)
-          //Wat hier staat (map) moet ook in de context
           updateFavoriteMovie(movieID, updatedMovie)
         }
 
