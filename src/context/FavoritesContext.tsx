@@ -10,7 +10,24 @@ interface FavoritesContextType {
   deleteFavoriteMovie: (imdbID: string) => void;
   updateFavoritesLS: (updatedFavorites: IMDBMovie[]) => void;
 }
-export const FavoritesContext = createContext<FavoritesContextType>({});
+export const FavoritesContext = createContext<FavoritesContextType>({
+  favoriteMovies: [],
+  setFavoriteMovies: function (value: React.SetStateAction<IMDBMovie[]>): void {
+    throw new Error('Function not implemented.');
+  },
+  createFavoriteMovie: function (movie: IMDBMovie): void {
+    throw new Error('Function not implemented.');
+  },
+  updateFavoriteMovie: function (imdbID: string, updatedMovie: IMDBMovie): void {
+    throw new Error('Function not implemented.');
+  },
+  deleteFavoriteMovie: function (imdbID: string): void {
+    throw new Error('Function not implemented.');
+  },
+  updateFavoritesLS: function (updatedFavorites: IMDBMovie[]): void {
+    throw new Error('Function not implemented.');
+  }
+});
 
 export const FavoritesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [favoriteMovies, setFavoriteMovies] = useState<IMDBMovie[]>([]);
